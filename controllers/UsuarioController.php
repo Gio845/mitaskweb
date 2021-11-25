@@ -2,11 +2,14 @@
 
 namespace app\controllers;
 
+use Yii;
 use app\models\Usuario;
-use app\models\UsuarioSearch;
 use yii\web\Controller;
-use yii\web\NotFoundHttpException;
+use yii\web\UploadedFile;
 use yii\filters\VerbFilter;
+use app\models\UsuarioSearch;
+use yii\web\NotFoundHttpException;
+use webvimark\modules\UserManagement\models\User;
 
 /**
  * UsuarioController implements the CRUD actions for Usuario model.
@@ -66,19 +69,58 @@ class UsuarioController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Usuario();
+        // $model = new Usuario();
 
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->usu_id]);
+        // if ($this->request->isPost) {
+        //     if ($model->load($this->request->post()) && $model->save()) {
+        //         return $this->redirect(['view', 'id' => $model->usu_id]);
+        //     }
+        // } else {
+        //     $model->loadDefaultValues();
+        // }
+
+        // return $this->render('create', [
+        //     'model' => $model,
+        // ]);
+
+        $usuario = new Usuario();
+        $user    = new User();
+
+        if ($this->request->isPost && $usuario->load($this->request->post()) && $user->load($this->request->post())) {
+            //return $this->redirect(['view', 'id' => $model->usu_id]);
+
+            $user->auth_key        = Yii::$app->security->generateRandomString();
+            $user->password_hash   = Yii::$app->security->generatePasswordHash($user->password);
+            $user->status          = 1;
+            $user->created_at      = time();
+            $user->updated_at      = time();
+            $user->email_confirmed = 1;
+            $user->username = $user->email;
+            if ($user->save()) {
+                User::assignRole($user->id, "Normal");
+                $usuario->usu_fkuser   = $user->id;
+                $image = UploadedFile::getInstance($usuario, 'img'); //instanciamos la imagen
+                if (!is_null($image)) {
+                    $ext = explode(".", $image->name); //obtenemos la extension de la img
+                    $ext = end($ext); //obtenemos la extension de la img
+                    //guardamos la imagen con otro nombre para evitar repetir nombres
+                    $usuario->usu_imagen = Yii::$app->security->generateRandomString() . ".{$ext}";
+                    //variable para guardar la ruta donde se guarda la imagen
+                    $path = Yii::$app->basePath . "/web/images/imagen-perfil-usuario/" . $usuario->usu_imagen;
+                    //Condicionamos si se guardo la ruta y los datos al modelo
+                    if ($image->saveAs($path) && $usuario->save()) {
+
+                        return $this->redirect(Yii::$app->user->isSuperAdmin ? '/alumno/index' : '/site/login');
+                    }
+                } else {
+                    if ($usuario->save()) {
+                        return $this->redirect(Yii::$app->user->isSuperAdmin ? '/alumno/index' : '/site/login');
+                        //return $this->redirect(['view', 'id' => $model->div_id]);
+                    }
+                }
             }
-        } else {
-            $model->loadDefaultValues();
         }
-
-        return $this->render('create', [
-            'model' => $model,
-        ]);
+        return $this->render('create', compact('usuario', 'user'));
     }
 
     /**
