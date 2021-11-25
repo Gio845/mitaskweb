@@ -52,10 +52,10 @@ class TareaController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($tar_id)
+    public function actionView($id)
     {
         return $this->render('view', [
-            'model' => $this->findModel($tar_id),
+            'model' => $this->findModel($id),
         ]);
     }
 
@@ -70,7 +70,7 @@ class TareaController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'tar_id' => $model->tar_id]);
+                return $this->redirect(['view', 'id' => $model->tar_id]);
             }
         } else {
             $model->loadDefaultValues();
@@ -88,12 +88,12 @@ class TareaController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($tar_id)
+    public function actionUpdate($id)
     {
-        $model = $this->findModel($tar_id);
+        $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'tar_id' => $model->tar_id]);
+            return $this->redirect(['view', 'id' => $model->tar_id]);
         }
 
         return $this->render('update', [
@@ -108,9 +108,9 @@ class TareaController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($tar_id)
+    public function actionDelete($id)
     {
-        $this->findModel($tar_id)->delete();
+        $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
     }
@@ -122,7 +122,7 @@ class TareaController extends Controller
      * @return Tarea the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($tar_id)
+    protected function findModel($id)
     {
         if (($model = Tarea::findOne($id)) !== null) {
             return $model;

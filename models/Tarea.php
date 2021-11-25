@@ -50,7 +50,7 @@ class Tarea extends \yii\db\ActiveRecord
     {
         return [
             'tar_id' => 'Id',
-            'tar_nombre' => 'Nombre',
+            'tar_nombre' => '     ',
             'tar_descripcion' => 'Descripción',
             'tar_registro' => 'Registro',
             'tar_estatus' => 'Estatus',
