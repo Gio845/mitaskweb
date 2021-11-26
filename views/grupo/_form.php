@@ -1,6 +1,8 @@
 <?php
 
 use yii\helpers\Html;
+use app\models\Usuario;
+use kartik\select2\Select2;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
@@ -16,7 +18,14 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'gru_descripcion')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'gru_fkusuario')->textInput() ?>
+    <?= $form->field($model, 'gru_fkusuario')->widget(Select2::classname(), [
+        'data' => Usuario::mapUsuario(),
+        'language' => 'es',
+        'options' => ['placeholder' => 'Seleccione un Alumno...'],
+        'pluginOptions' => [
+            'allowClear' => true
+        ],
+    ]); ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

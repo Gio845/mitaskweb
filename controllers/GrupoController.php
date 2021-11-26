@@ -52,10 +52,10 @@ class GrupoController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($gru_id)
+    public function actionView($id)
     {
         return $this->render('view', [
-            'model' => $this->findModel($gru_id),
+            'model' => $this->findModel($id),
         ]);
     }
 
@@ -70,7 +70,7 @@ class GrupoController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'gru_id' => $model->gru_id]);
+                return $this->redirect(['view', 'id' => $model->gru_id]);
             }
         } else {
             $model->loadDefaultValues();
@@ -88,12 +88,12 @@ class GrupoController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($gru_id)
+    public function actionUpdate($id)
     {
-        $model = $this->findModel($gru_id);
+        $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'gru_id' => $model->gru_id]);
+            return $this->redirect(['view', 'id' => $model->gru_id]);
         }
 
         return $this->render('update', [
@@ -108,9 +108,9 @@ class GrupoController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($gru_id)
+    public function actionDelete($id)
     {
-        $this->findModel($gru_id)->delete();
+        $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
     }
@@ -122,7 +122,7 @@ class GrupoController extends Controller
      * @return Grupo the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($gru_id)
+    protected function findModel($id)
     {
         if (($model = Grupo::findOne($id)) !== null) {
             return $model;
