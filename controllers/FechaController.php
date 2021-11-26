@@ -52,10 +52,10 @@ class FechaController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($fec_id)
+    public function actionView($id)
     {
         return $this->render('view', [
-            'model' => $this->findModel($fec_id),
+            'model' => $this->findModel($id),
         ]);
     }
 
@@ -70,7 +70,7 @@ class FechaController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'fec_id' => $model->fec_id]);
+                return $this->redirect(['view', 'id' => $model->fec_id]);
             }
         } else {
             $model->loadDefaultValues();
@@ -88,12 +88,12 @@ class FechaController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($fec_id)
+    public function actionUpdate($id)
     {
-        $model = $this->findModel($fec_id);
+        $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'fec_id' => $model->fec_id]);
+            return $this->redirect(['view', 'id' => $model->fec_id]);
         }
 
         return $this->render('update', [
@@ -108,9 +108,9 @@ class FechaController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($fec_id)
+    public function actionDelete($id)
     {
-        $this->findModel($fec_id)->delete();
+        $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
     }
@@ -122,7 +122,7 @@ class FechaController extends Controller
      * @return Fecha the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($fec_id)
+    protected function findModel($id)
     {
         if (($model = Fecha::findOne($id)) !== null) {
             return $model;
