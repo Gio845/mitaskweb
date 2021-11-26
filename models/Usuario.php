@@ -4,6 +4,7 @@ namespace app\models;
 
 use Yii;
 use yii\helpers\Html;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "usuario".
@@ -92,5 +93,10 @@ class Usuario extends \yii\db\ActiveRecord
     public function getUrl()
     {
         return "/images/" . (empty($this->usu_imagen) ? 'imagen-perfil-usuario/usuario.png' : "imagen-perfil-usuario/{$this->usu_imagen}");
+    }
+    //Te devuelve todos los usuario registrados en forma de array se usa para los select2 usualmente. 
+    public static function mapUsuario()
+    {
+        return ArrayHelper::map(Usuario::find()->all(), 'usu_id', 'usu_nombre');
     }
 }
