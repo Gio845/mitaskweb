@@ -6,20 +6,17 @@ $gio = [
     ['nombre' => 'Grupo', 'url' => '/grupo', 'icon' => 'grupo'],
 ];
 $jorge = [
-    ['nombre' => 'Grupo', 'url' => '#', 'icon' => 'grupo'],
-    ['nombre' => 'Integrante', 'url' => '#', 'icon' => 'integrante'],
-    ['nombre' => 'Publicacion', 'url' => '#', 'icon' => 'publicacion'],
-    ['nombre' => 'Genero', 'url' => '#', 'icon' => 'genero'],
+    ['nombre' => 'Fecha', 'url' => '/fecha', 'icon' => 'fecha'],
+    
+    
 ];
-$horacio = [
-    ['nombre' => 'Mensaje', 'url' => '#', 'icon' => 'mensaje', 'content' => 'mensaje'],
-    ['nombre' => 'Chat', 'url' => '#', 'icon' => 'chat', 'content' => 'Chat'],
-    ['nombre' => 'Chat-Integrante', '#' => '/chat-integrante', 'icon' => 'chat-integrante', 'content' => 'Chat-Integrante'],
+$Osorio = [
+    ['nombre' => 'Tarea', 'url' => '/tarea', 'icon' => 'tarea'],
 ];
 $botones = [
     'Giovanni' => $gio,
     'Jorge' => $jorge,
-    'Horacio' => $horacio,
+    'Osorio' => $Osorio,
 ];
 $botones = $botones[$nombre];
 ?>
