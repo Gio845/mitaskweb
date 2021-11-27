@@ -68,7 +68,8 @@ class SiteController extends Controller
         $vista = 'index';
         if (User::hasRole('Admin')) {
             $vista = 'superadmin/index';
-            return $this->render($vista);
+        } else if (User::hasRole('Normal')) {
+            $vista = 'normal/index';
         }
         return $this->render($vista);
     }
