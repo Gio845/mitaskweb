@@ -37,10 +37,13 @@ use webvimark\modules\UserManagement\UserManagementModule;
         ],
 
     ]);
-    $menuItems = [
-        ['label' => 'Inicio', 'url' => ['/site/index'], 'visible' => User::hasRole('Admin')],
 
-    ];
+    $menuItems = ['<a class="navbar-brand js-scroll-trigger" href="#page-top">
+        <span class="d-block d-lg-none">Clarence Taylor</span>
+        <span class="d-none d-lg-block"><img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="plantilla/dist2/assets/img/profile.jpg" alt="..." /></span>
+    </a>'];
+    $menuItems[] =
+        ['label' => 'Inicio', 'url' => ['/site/index'], 'visible' => User::hasRole('Admin')];
     //     $menuItems[] = '<a class="navbar-brand js-scroll-trigger" href="#page-top">
     //     <span class="d-block d-lg-none">Clarence Taylor</span>
     //     <span class="d-none d-lg-block"><img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="plantilla/dist2/assets/img/profile.jpg" alt="..." /></span>
@@ -56,10 +59,7 @@ use webvimark\modules\UserManagement\UserManagementModule;
     //       <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#awards">Awards</a></li>
     //     </ul>
     //   </div>';
-    $menuItems[] = '<a class="navbar-brand js-scroll-trigger" href="#page-top">
-        <span class="d-block d-lg-none">Clarence Taylor</span>
-        <span class="d-none d-lg-block"><img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="plantilla/dist2/assets/img/profile.jpg" alt="..." /></span>
-    </a>';
+
     $menuItems[] = '<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>';
 
     $menuItems[] = '<div class="collapse navbar-collapse" id="navbarResponsive">';
@@ -92,8 +92,8 @@ use webvimark\modules\UserManagement\UserManagementModule;
     //     )
     //     . Html::endForm()
     //     . '</li>');
-    Yii::$app->user->isGuest ?  $menuItems[] = (['label' => 'Iniciar sesión', 'url' => ['/user-management/auth/login'], 'visible' => User::hasRole('Admin')]) :
-        $menuItems[] = (['label' => 'Cerrar Sesión', 'url' => ['/user-management/auth/logout'], 'visible' => User::hasRole('Admin')]);
+    Yii::$app->user->isGuest ?  $menuItems[] = (['label' => 'Iniciar sesión', 'url' => ['/user-management/auth/login'],]) :
+        $menuItems[] = (['label' => 'Cerrar Sesión', 'url' => ['/user-management/auth/logout'],]);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav'],
         'items' => $menuItems,
