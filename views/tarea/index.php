@@ -30,7 +30,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'tar_nombre',
             'tar_descripcion:ntext',
             'tar_registro',
-            'tar_estatus',
+            'estatusNombre',
+            //'tar_estatus',
             //'tar_privacidad',
             //'tar_fkgrupo',
 

@@ -11,6 +11,8 @@ use app\models\Tarea;
  */
 class TareaSearch extends Tarea
 {
+    public $estatusNombre;
+
     /**
      * {@inheritdoc}
      */
@@ -18,7 +20,7 @@ class TareaSearch extends Tarea
     {
         return [
             [['tar_id', 'tar_estatus', 'tar_privacidad', 'tar_fkgrupo'], 'integer'],
-            [['tar_nombre', 'tar_descripcion', 'tar_registro'], 'safe'],
+            [['tar_nombre', 'tar_descripcion', 'tar_registro', 'estatusNombre'], 'safe'],
         ];
     }
 
@@ -40,12 +42,28 @@ class TareaSearch extends Tarea
      */
     public function search($params)
     {
-        $query = Tarea::find();
+        $query = Tarea::find()->where([
+            'tar_estatus' => '1'
+        ]);
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+        ]);
+
+        $dataProvider->setSort([
+            'attributes' =>[
+           'tar_id',
+           'tar_nombre',
+           'tar_descripcion',
+            'tar_registro',        
+            'estatusNombre' =>[
+                'asc' => ['tar_estatus' => SORT_ASC],
+                'desc' => ['tar_estatus' => SORT_DESC],
+                'default' => SORT_ASC,
+                ]
+            ]
         ]);
 
         $this->load($params);

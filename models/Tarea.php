@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "tarea".
@@ -78,4 +79,21 @@ class Tarea extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Grupo::className(), ['gru_id' => 'tar_fkgrupo']);
     }
+
+    public static function getGruposNombreMap() {
+        return ArrayHelper::map(Grupo::find()->all(), 'gru_id', 'gru_nombre');
+    }
+
+    public static function getPrivacidadMap() {
+        return ArrayHelper::map(Grupo::find()->all(), 'gru_id', 'gru_nombre');
+    }
+
+    public function getEstatusNombre(){
+        if ($this->tar_privacidad == 1) {
+            return "Guardado";
+        }else {
+            return "Eliminado";
+        }
+    }
+
 }
