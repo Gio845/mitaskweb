@@ -71,4 +71,10 @@ class Grupo extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Tarea::className(), ['tar_fkgrupo' => 'gru_id']);
     }
+
+    //Esta funcion trae todos los grupos que tiene el usuario que esta logeado
+    public function getUsuarioGrupo()
+    {
+        return self::find()->where(['gru_fkusuario' => Usuario::getUsuarioLogueado()->usu_id])->all();
+    }
 }

@@ -64,8 +64,8 @@ use webvimark\modules\UserManagement\UserManagementModule;
 
     $menuItems[] = '<div class="collapse navbar-collapse" id="navbarResponsive">';
     $menuItems[] = '<ul class="navbar-nav">';
-    $menuItems[] = ['label' => 'About', 'url' => ['#'], 'visible' => User::hasRole('Normal', false), 'options' => ['class' => 'nav-item']];
-    $menuItems[] = ['label' => 'Experience', 'url' => ['#'], 'visible' => User::hasRole('Normal', false), 'options' => ['class' => 'nav-item']];
+    $menuItems[] = ['label' => 'Inicio', 'url' => ['/'], 'visible' => User::hasRole('Normal', false), 'options' => ['class' => 'nav-item']];
+    $menuItems[] = ['label' => 'Mis Grupos', 'url' => ['/grupo'], 'visible' => User::hasRole('Normal', false), 'options' => ['class' => 'nav-item']];
     $menuItems[] = ['label' => 'Education', 'url' => ['#'], 'visible' => User::hasRole('Normal', false), 'options' => ['class' => 'nav-item']];
     $menuItems[] = ['label' => 'Skills', 'url' => ['#'], 'visible' => User::hasRole('Normal', false), 'options' => ['class' => 'nav-item']];
     $menuItems[] = ['label' => 'Interests', 'url' => ['#'], 'visible' => User::hasRole('Normal', false), 'options' => ['class' => 'nav-item']];

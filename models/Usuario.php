@@ -94,6 +94,13 @@ class Usuario extends \yii\db\ActiveRecord
     {
         return "/images/" . (empty($this->usu_imagen) ? 'imagen-perfil-usuario/usuario.png' : "imagen-perfil-usuario/{$this->usu_imagen}");
     }
+
+    //Esta funcion trae los datos de la tabla usuario del que esta logueado
+    public static function getUsuarioLogueado()
+    {
+        return Usuario::find()->where(['usu_fkuser' => Yii::$app->user->id,])->one();
+    }
+
     //Te devuelve todos los usuario registrados en forma de array se usa para los select2 usualmente. 
     public static function mapUsuario()
     {

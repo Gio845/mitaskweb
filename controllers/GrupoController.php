@@ -3,10 +3,11 @@
 namespace app\controllers;
 
 use app\models\Grupo;
-use app\models\GrupoSearch;
 use yii\web\Controller;
-use yii\web\NotFoundHttpException;
+use app\models\GrupoSearch;
 use yii\filters\VerbFilter;
+use yii\web\NotFoundHttpException;
+use webvimark\modules\UserManagement\models\User;
 
 /**
  * GrupoController implements the CRUD actions for Grupo model.
@@ -40,10 +41,15 @@ class GrupoController extends Controller
         $searchModel = new GrupoSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+        if (User::hasrole("Normal", false)) {
+            $grupos = Grupo::getUsuarioGrupo();
+            return $this->render('inicio', compact('grupos'));
+        } else {
+            return $this->render('index', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+            ]);
+        }
     }
 
     /**
