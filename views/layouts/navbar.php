@@ -66,10 +66,6 @@ use webvimark\modules\UserManagement\UserManagementModule;
     $menuItems[] = '<ul class="navbar-nav">';
     $menuItems[] = ['label' => 'Inicio', 'url' => ['/'], 'visible' => User::hasRole('Normal', false), 'options' => ['class' => 'nav-item']];
     $menuItems[] = ['label' => 'Mis Grupos', 'url' => ['/grupo'], 'visible' => User::hasRole('Normal', false), 'options' => ['class' => 'nav-item']];
-    $menuItems[] = ['label' => 'Education', 'url' => ['#'], 'visible' => User::hasRole('Normal', false), 'options' => ['class' => 'nav-item']];
-    $menuItems[] = ['label' => 'Skills', 'url' => ['#'], 'visible' => User::hasRole('Normal', false), 'options' => ['class' => 'nav-item']];
-    $menuItems[] = ['label' => 'Interests', 'url' => ['#'], 'visible' => User::hasRole('Normal', false), 'options' => ['class' => 'nav-item']];
-    $menuItems[] = ['label' => 'Awards', 'url' => ['#'], 'visible' => User::hasRole('Normal', false), 'options' => ['class' => 'nav-item']];
     $menuItems[] = '</ul>';
     $menuItems[] = '</div>';
 

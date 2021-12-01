@@ -24,6 +24,9 @@ class UsuarioController extends Controller
         return array_merge(
             parent::behaviors(),
             [
+                'ghost-access' => [
+                    'class' => 'webvimark\modules\UserManagement\components\GhostAccessControl',
+                ],
                 'verbs' => [
                     'class' => VerbFilter::className(),
                     'actions' => [
@@ -69,26 +72,10 @@ class UsuarioController extends Controller
      */
     public function actionCreate()
     {
-        // $model = new Usuario();
-
-        // if ($this->request->isPost) {
-        //     if ($model->load($this->request->post()) && $model->save()) {
-        //         return $this->redirect(['view', 'id' => $model->usu_id]);
-        //     }
-        // } else {
-        //     $model->loadDefaultValues();
-        // }
-
-        // return $this->render('create', [
-        //     'model' => $model,
-        // ]);
-
         $usuario = new Usuario();
         $user    = new User();
 
         if ($this->request->isPost && $usuario->load($this->request->post()) && $user->load($this->request->post())) {
-            //return $this->redirect(['view', 'id' => $model->usu_id]);
-
             $user->auth_key        = Yii::$app->security->generateRandomString();
             $user->password_hash   = Yii::$app->security->generatePasswordHash($user->password);
             $user->status          = 1;
@@ -109,7 +96,6 @@ class UsuarioController extends Controller
                     $path = Yii::$app->basePath . "/web/images/imagen-perfil-usuario/" . $usuario->usu_imagen;
                     //Condicionamos si se guardo la ruta y los datos al modelo
                     if ($image->saveAs($path) && $usuario->save()) {
-
                         return $this->redirect(Yii::$app->user->isSuperAdmin ? '/alumno/index' : '/site/login');
                     }
                 } else {
@@ -123,13 +109,6 @@ class UsuarioController extends Controller
         return $this->render('create', compact('usuario', 'user'));
     }
 
-    /**
-     * Updates an existing Usuario model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param int $usu_id Id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
@@ -143,13 +122,6 @@ class UsuarioController extends Controller
         ]);
     }
 
-    /**
-     * Deletes an existing Usuario model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param int $usu_id Id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
@@ -157,13 +129,6 @@ class UsuarioController extends Controller
         return $this->redirect(['index']);
     }
 
-    /**
-     * Finds the Usuario model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param int $usu_id Id
-     * @return Usuario the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
     protected function findModel($id)
     {
         if (($model = Usuario::findOne($id)) !== null) {

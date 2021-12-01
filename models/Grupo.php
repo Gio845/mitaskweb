@@ -73,7 +73,7 @@ class Grupo extends \yii\db\ActiveRecord
     }
 
     //Esta funcion trae todos los grupos que tiene el usuario que esta logeado
-    public function getUsuarioGrupo()
+    public static function getUsuarioGrupo()
     {
         return self::find()->where(['gru_fkusuario' => Usuario::getUsuarioLogueado()->usu_id])->all();
     }
