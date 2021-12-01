@@ -21,8 +21,11 @@ class AppAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-        'css/site.css',
+        //plantilla3
+        'plantilla/dist3/css/templatemo-softy-pinko.css',
 
+
+        'css/site.css',
         'plantilla/dist/style.css',
         'https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css',
         //'https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css',
@@ -36,6 +39,12 @@ class AppAsset extends AssetBundle
         'plantilla/dist2/css/styles.css',
         'https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700',
         'https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i',
+
+        //plantilla3
+        //'plantilla/dist3/css/bootstrap.min.css',
+        //'plantilla/dist3/css/flex-slider.css',
+        //'plantilla/dist3/css/font-awesome.css',
+
 
 
     ];

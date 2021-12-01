@@ -92,7 +92,11 @@ class Usuario extends \yii\db\ActiveRecord
 
     public function getUrl()
     {
-        return "/images/" . (empty($this->usu_imagen) ? 'imagen-perfil-usuario/usuario.png' : "imagen-perfil-usuario/{$this->usu_imagen}");
+        if (Yii::$app->user->isSuperAdmin) {
+            return "/images/imagen-perfil-usuario/usuario.png";
+        } else {
+            return "/images/" . (empty($this->usu_imagen) ? 'imagen-perfil-usuario/usuario.png' : "imagen-perfil-usuario/{$this->usu_imagen}");
+        }
     }
 
     //Esta funcion trae los datos de la tabla usuario del que esta logueado

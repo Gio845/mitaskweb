@@ -41,7 +41,7 @@ $model = new \app\models\Grupo();
                         </div>
                         <!-- Product actions-->
                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center"><a class="btn btn-outline-dark mt-auto"> Ver Tareas</a></div>
+                            <div class="text-center"><a href="/grupo/todas-las-tareas" class="btn btn-outline-dark mt-auto"> Ver Tareas</a></div>
                         </div>
                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                             <?php // Html::a('Crear Grupo', ['#'], ['class' => 'btn btn-success']) 
