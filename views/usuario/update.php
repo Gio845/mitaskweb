@@ -8,6 +8,6 @@ $this->params['breadcrumbs'][] = ['label' => $usuario->usu_id, 'url' => ['view',
 $this->params['breadcrumbs'][] = 'Actualizar';
 ?>
 <div class="usuario-update">
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h2><?= Html::encode($this->title) ?></h2>
     <?= $this->render('_form', compact('usuario', 'user')); ?>
 </div>

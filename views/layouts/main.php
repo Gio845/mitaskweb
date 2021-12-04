@@ -23,8 +23,8 @@ AppAsset::register($this);
 </head>
 
 <?php if (!Yii::$app->user->isGuest) {
-    echo $this->render('navbar');
 }
+echo $this->render('navbar');
 
 ?>
 
