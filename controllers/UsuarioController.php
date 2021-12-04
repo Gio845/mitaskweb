@@ -11,9 +11,6 @@ use app\models\UsuarioSearch;
 use yii\web\NotFoundHttpException;
 use webvimark\modules\UserManagement\models\User;
 
-/**
- * UsuarioController implements the CRUD actions for Usuario model.
- */
 class UsuarioController extends Controller
 {
     public  $freeAccessActions = ['create'];
@@ -36,10 +33,6 @@ class UsuarioController extends Controller
         );
     }
 
-    /**
-     * Lists all Usuario models.
-     * @return mixed
-     */
     public function actionIndex()
     {
         $searchModel = new UsuarioSearch();
@@ -51,12 +44,6 @@ class UsuarioController extends Controller
         ]);
     }
 
-    /**
-     * Displays a single Usuario model.
-     * @param int $usu_id Id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
     public function actionView($id)
     {
         return $this->render('view', [
@@ -89,21 +76,19 @@ class UsuarioController extends Controller
                     //variable para guardar la ruta donde se guarda la imagen
                     $path = Yii::$app->basePath . "/web/images/imagen-perfil-usuario/" . $usuario->usu_imagen;
                     //Condicionamos si se guardo la ruta y los datos al modelo
-                    if ($image->saveAs($path) && $usuario->save()) {
-                        return $this->redirect(Yii::$app->user->isSuperAdmin ? '/alumno/index' : '/site/login');
-                    }
-                } else {
-                    if ($usuario->save()) {
-                        return $this->redirect(Yii::$app->user->isSuperAdmin ? '/alumno/index' : '/site/login');
-                        //return $this->redirect(['view', 'id' => $model->div_id]);
+                    $image->saveAs($path);
+                }
+                if ($usuario->save()) {
+                    if (Yii::$app->user->isSuperAdmin) {
+                        return $this->redirect(['view', 'id' => $usuario->usu_id]);
+                    } else {
+                        return $this->redirect(['/site/login']);
                     }
                 }
             }
         }
-        if (User::hasRole('Admin')) {
+        if (Yii::$app->user->isSuperAdmin) {
             return $this->render('create', compact('usuario', 'user'));
-        } else if (User::hasRole('Normal', false)) {
-            return $this->render('registrar', compact('usuario', 'user'));
         } else {
             return $this->render('registrar', compact('usuario', 'user'));
         }
@@ -117,12 +102,10 @@ class UsuarioController extends Controller
         } else {
             $usuario = Usuario::getUsuarioLogueado();
         }
-        $validacion = '0'; //0=no cambio nada del user - 1=cambio algo de user 
         $user    = User::find()->where(['id' => $usuario->usu_fkuser,])->one();
 
         if ($this->request->isPost) {
             if ($user->load($this->request->post())) {
-                $validacion = '1';
                 $user->save();
             }
             if ($usuario->load($this->request->post())) {
@@ -139,28 +122,26 @@ class UsuarioController extends Controller
                 }
                 $usuario->save();
             }
-            if (User::hasRole("Admin")) {
+            if (Yii::$app->user->isSuperAdmin) {
                 return $this->redirect(['view', 'id' => $usuario->usu_id]);
             } else if (User::hasRole("Normal", false)) {
-                if ($validacion == 0) {
-                    $direccion = '/site';
-                } else {
-                    $direccion = '/user-management/auth/logout';
-                }
-                return $this->redirect($direccion);
+                return $this->redirect('/user-management/auth/logout');
             }
         }
         if (User::hasRole('Normal', false)) {
             return $this->render('mi-cuenta', compact('usuario', 'user'));
-        } else if (User::hasRole('Admin')) {
+        } else if (Yii::$app->user->isSuperAdmin) {
             return $this->render('update', compact('usuario', 'user'));
         }
     }
 
     public function actionDelete($id)
     {
+        $usuario = $this->findModel($id);
+        //Eliminar usuario
         $this->findModel($id)->delete();
-
+        //Eliminar user
+        User::findOne($usuario->usu_fkuser)->delete();
         return $this->redirect(['index']);
     }
 

@@ -101,6 +101,12 @@ class Usuario extends \yii\db\ActiveRecord
         return Usuario::find()->where(['usu_fkuser' => Yii::$app->user->id,])->one();
     }
 
+    //Esta funcion trae los datos de la tabla usuario de un usuario en especifico si se sabe el usu_id
+    public static function getUsuarioEspecifico($id)
+    {
+        return Usuario::find()->where(['usu_id' => $id,])->one();
+    }
+
     //Te devuelve todos los usuario registrados en forma de array se usa para los select2 usualmente. 
     public static function mapUsuario()
     {

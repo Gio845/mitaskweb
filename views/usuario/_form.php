@@ -44,10 +44,10 @@ use webvimark\modules\UserManagement\models\User;
                     <?= Html::submitButton('Guardar', ['class' => 'btn btn-success']) ?>
                     <?php Modal::end(); ?>
                 <?php } else { ?>
-                    <div class="col-md-12">
+                    <div class="col-md-6">
                         <?= $form->field($user, 'password')->passwordInput(['maxlength' => 255, 'autocomplete' => 'off']) ?>
                     </div>
-                    <div class="col-md-12">
+                    <div class="col-md-6">
                         <?= $form->field($user, 'repeat_password')->passwordInput(['maxlength' => 255, 'autocomplete' => 'off']) ?>
                     </div>
 
