@@ -11,11 +11,11 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="usuario-view">
     <h1><?= Html::encode($this->title) ?></h1>
     <p>
-        <?= Html::a('Update', ['update', 'usu_id' => $model->usu_id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'usu_id' => $model->usu_id], [
+        <?= Html::a('Actualizar', ['update', 'id' => $model->usu_id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Eliminar', ['delete', 'id' => $model->usu_id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => '¿Estás seguro de que quieres eliminar a este usuario?',
                 'method' => 'post',
             ],
         ]) ?>
@@ -27,7 +27,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'usu_nombre',
             'usu_materno',
             'usu_paterno',
-            'usu_imagen',
+            //'usu_imagen',
+            [
+                'attribute' => 'imagen',
+                'format' => 'raw',
+            ],
             'usu_fkuser',
         ],
     ]) ?>

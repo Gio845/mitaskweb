@@ -45,6 +45,19 @@ class AppAsset extends AssetBundle
         //'plantilla/dist3/css/flex-slider.css',
         //'plantilla/dist3/css/font-awesome.css',
 
+        //plantilla mi-Cuenta
+        //'plantilla/mi-cuenta/css/style.css',
+        // 'plantilla/mi-cuenta/css/bootstrap.min.css',
+        // 'plantilla/mi-cuenta/css/magnific-popup.css',
+        // 'plantilla/mi-cuenta/css/animate.css',
+        // 'plantilla/mi-cuenta/css/owl.carousel.min.css',
+        // 'plantilla/mi-cuenta/css/themify-icons.css',
+        // 'plantilla/mi-cuenta/css/pe-icon-7-stroke.css',
+        // 'plantilla/mi-cuenta/css/icofont.css',
+        // 'plantilla/mi-cuenta/css/meanmenu.min.css',
+        // 'plantilla/mi-cuenta/css/bundle.css',
+        //'plantilla/mi-cuenta/css/responsive.css',
+
 
 
     ];

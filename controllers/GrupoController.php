@@ -15,9 +15,6 @@ use webvimark\modules\UserManagement\models\User;
  */
 class GrupoController extends Controller
 {
-    /**
-     * @inheritDoc
-     */
     public function behaviors()
     {
         return array_merge(
@@ -36,10 +33,6 @@ class GrupoController extends Controller
         );
     }
 
-    /**
-     * Lists all Grupo models.
-     * @return mixed
-     */
     public function actionIndex()
     {
         $searchModel = new GrupoSearch();
@@ -56,12 +49,6 @@ class GrupoController extends Controller
         }
     }
 
-    /**
-     * Displays a single Grupo model.
-     * @param int $gru_id Id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
     public function actionView($id)
     {
         return $this->render('view', [
@@ -69,11 +56,6 @@ class GrupoController extends Controller
         ]);
     }
 
-    /**
-     * Creates a new Grupo model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
     public function actionCreate()
     {
         $model = new Grupo();
@@ -100,13 +82,6 @@ class GrupoController extends Controller
         ]);
     }
 
-    /**
-     * Updates an existing Grupo model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param int $gru_id Id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
@@ -120,13 +95,6 @@ class GrupoController extends Controller
         ]);
     }
 
-    /**
-     * Deletes an existing Grupo model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param int $gru_id Id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
@@ -134,13 +102,6 @@ class GrupoController extends Controller
         return $this->redirect(['index']);
     }
 
-    /**
-     * Finds the Grupo model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param int $gru_id Id
-     * @return Grupo the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
     protected function findModel($id)
     {
         if (($model = Grupo::findOne($id)) !== null) {
@@ -148,10 +109,5 @@ class GrupoController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
-    }
-
-    public function actionTodasLasTareas()
-    {
-        return $this->render('/tarea/a');
     }
 }

@@ -16,9 +16,8 @@ use webvimark\modules\UserManagement\models\User;
  */
 class UsuarioController extends Controller
 {
-    /**
-     * @inheritDoc
-     */
+    public  $freeAccessActions = ['create'];
+
     public function behaviors()
     {
         return array_merge(
@@ -65,11 +64,6 @@ class UsuarioController extends Controller
         ]);
     }
 
-    /**
-     * Creates a new Usuario model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
     public function actionCreate()
     {
         $usuario = new Usuario();
@@ -82,7 +76,7 @@ class UsuarioController extends Controller
             $user->created_at      = time();
             $user->updated_at      = time();
             $user->email_confirmed = 1;
-            $user->username = $user->email;
+            $user->email = $user->username;
             if ($user->save()) {
                 User::assignRole($user->id, "Normal");
                 $usuario->usu_fkuser   = $user->id;
@@ -106,20 +100,61 @@ class UsuarioController extends Controller
                 }
             }
         }
-        return $this->render('create', compact('usuario', 'user'));
+        if (User::hasRole('Admin')) {
+            return $this->render('create', compact('usuario', 'user'));
+        } else if (User::hasRole('Normal', false)) {
+            return $this->render('registrar', compact('usuario', 'user'));
+        } else {
+            return $this->render('registrar', compact('usuario', 'user'));
+        }
     }
 
-    public function actionUpdate($id)
+    public function actionUpdate($id = null)
     {
-        $model = $this->findModel($id);
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'usu_id' => $model->usu_id]);
+        if (Yii::$app->user->isSuperAdmin) {
+            $usuario = $this->findModel($id);
+        } else {
+            $usuario = Usuario::getUsuarioLogueado();
         }
+        $validacion = '0'; //0=no cambio nada del user - 1=cambio algo de user 
+        $user    = User::find()->where(['id' => $usuario->usu_fkuser,])->one();
 
-        return $this->render('update', [
-            'model' => $model,
-        ]);
+        if ($this->request->isPost) {
+            if ($user->load($this->request->post())) {
+                $validacion = '1';
+                $user->save();
+            }
+            if ($usuario->load($this->request->post())) {
+                $image = UploadedFile::getInstance($usuario, 'img'); //instanciamos la imagen
+                if (!is_null($image)) {  //si la imagen no esta vacia
+                    if (empty($usuario->usu_imagen)) {
+                        $ext = explode(".", $image->name); //obtenemos la extension de la img
+                        $ext = end($ext); //obtenemos la extension de la img
+                        //guardamos la imagen con otro nombre para evitar repetir nombres
+                        $usuario->usu_imagen = Yii::$app->security->generateRandomString() . ".{$ext}";
+                    }
+                    $path = Yii::$app->basePath . "/web/images/imagen-perfil-usuario/" . $usuario->usu_imagen;
+                    $image->saveAs($path);
+                }
+                $usuario->save();
+            }
+            if (User::hasRole("Admin")) {
+                return $this->redirect(['view', 'id' => $usuario->usu_id]);
+            } else if (User::hasRole("Normal", false)) {
+                if ($validacion == 0) {
+                    $direccion = '/site';
+                } else {
+                    $direccion = '/user-management/auth/logout';
+                }
+                return $this->redirect($direccion);
+            }
+        }
+        if (User::hasRole('Normal', false)) {
+            return $this->render('mi-cuenta', compact('usuario', 'user'));
+        } else if (User::hasRole('Admin')) {
+            return $this->render('update', compact('usuario', 'user'));
+        }
     }
 
     public function actionDelete($id)
