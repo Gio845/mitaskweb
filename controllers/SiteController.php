@@ -45,11 +45,14 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $vista = 'site/login';
-        if (User::hasRole('Admin')) {
+        if (Yii::$app->user->isSuperAdmin) {
             $vista = 'superadmin/index';
             return $this->render($vista);
-        } else if (User::hasRole('Normal')) {
+        } else if (User::hasRole('Normal', false)) {
             $vista = 'normal/index';
+            return $this->render($vista);
+        } else {
+            $vista = 'index';
             return $this->render($vista);
         }
         return $this->redirect($vista);

@@ -47,6 +47,8 @@ class AppAsset extends AssetBundle
 
         //plantilla mi-Cuenta
         'plantilla/mi-cuenta/css/style.css',
+        //'plantilla/mi-cuenta/css/bundle.css',
+        //'plantilla/mi-cuenta/css/responsive.css',
         // 'plantilla/mi-cuenta/css/bootstrap.min.css',
         // 'plantilla/mi-cuenta/css/magnific-popup.css',
         // 'plantilla/mi-cuenta/css/animate.css',

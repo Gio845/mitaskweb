@@ -27,12 +27,14 @@ use yii\bootstrap4\ActiveForm;
                             <?= $form->field($model, 'username')->textInput(['placeholder' => $model->getAttributeLabel('username'), 'class' => "input100", 'autofocus' => true,]) ?>
                             <?= $form->field($model, 'password')->passwordInput(['placeholder' => $model->getAttributeLabel('password'), 'class' => "input100", 'autofocus' => true,]) ?>
                             <div class="button-box">
-                                <div class="row">
-                                    <a href="#" class="col-6" style="color: #000000; text-align:left;">¿Olvidaste tú contraseña?</a>
-                                    <label class="col-6" style="text-align:right;"><a href="/usuario/create" style="color: #000000">Crea tu cuenta</a></label>
+                                <div class="row w-100">
+                                    <a href="#" class="col" style="color: #000000; text-align:left; ">¿Olvidaste tú contraseña?</a>
+                                    <label class="col" style="text-align:right; "><a href="/usuario/create" style="color: #000000">Crea tu cuenta</a></label>
                                 </div>
 
-                                <?= Html::submitButton('Iniciar sesión', ['class' => 'default-btn floatright']) ?>
+                                <div class="col-md-12" style="text-align:center">
+                                    <?= Html::submitButton('Iniciar sesión', ['class' => 'default-btn floatright']) ?>
+                                </div>
 
                             </div>
                             <?php ActiveForm::end(); ?>

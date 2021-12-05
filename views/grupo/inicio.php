@@ -11,7 +11,7 @@ $model = new \app\models\Grupo();
     <?php
     Modal::begin([
         'title' => 'Crear Grupo',
-        'toggleButton' => ['label' => 'Crear Grupo', 'options' => ['class' => 'btn btn-success']],
+        'toggleButton' => ['label' => 'Crear Grupo', 'class' => 'btn btn-success'],
 
     ]); ?>
     <?php $form = ActiveForm::begin(['action' => Url::to(['create'])]); ?>

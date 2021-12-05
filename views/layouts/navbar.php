@@ -7,7 +7,6 @@ use webvimark\modules\UserManagement\UserManagementModule;
 
 $usuario = app\models\Usuario::getUsuarioLogueado();
 ?>
-
 <header>
     <?php
     NavBar::begin([
@@ -19,7 +18,6 @@ $usuario = app\models\Usuario::getUsuarioLogueado();
     $menuItems = ['label' => '<a class="navbar-brand js-scroll-trigger" href="#page-top"><span class="d-block d-lg-none">Clarence Taylor</span><span class="d-none d-lg-block">'];
     if (!Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => '<img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="' . $usuario->getUrl() . '" style="width:60%"/></span></a>', 'visible' => User::hasRole('Normal', false)];
-    } else {
     }
     $menuItems[] = ['label' => '<img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="/images/imagen-perfil-usuario/usuario.png" style="width:60%"/></span></a>', 'visible' => Yii::$app->user->isSuperAdmin];
     $menuItems[] = '<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button><div class="collapse navbar-collapse" id="navbarResponsive"><ul class="navbar-nav">';
