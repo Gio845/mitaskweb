@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "fecha".
@@ -56,5 +57,9 @@ class Fecha extends \yii\db\ActiveRecord
     public function getFecFktarea()
     {
         return $this->hasOne(Tarea::className(), ['tar_id' => 'fec_fktarea']);
+    }
+    public static function getTareasMap()
+    {
+        return ArrayHelper::map(Tarea::find()->all(), 'tar_id', 'tar_nombre');
     }
 }
